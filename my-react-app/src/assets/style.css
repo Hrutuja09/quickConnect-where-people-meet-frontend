@@ -3,13 +3,13 @@ body {
   font-family: Arial, sans-serif;
   margin:0;
   padding:0;
+  background-color:aliceblue;
 }
 
 
 .container {
   height: 100vh;   
-  width: 100%;    
-  background-color: #d90368;  
+  width: 100%;      
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,6 @@ body {
 }
 
 h1 {
-  color: #fffbdb;
   margin-bottom: 50px;
   font-size: 40px;
 }
@@ -43,7 +42,7 @@ input {
 .button {
   height: 50px;
   width: 380px;
-  background-color: #fffbdb;
+  background-color: #c7faa0;
   border: none;
   border-radius: 10px;
   font-size: 18px;
@@ -62,7 +61,6 @@ input {
 }
 
 p{
-    color: #fffbdb;
     text-align: left;
     font-size: 20px;
     margin-bottom: 5px;
@@ -72,7 +70,7 @@ p{
 .button-register{
   height: 50px;
   width: 150px;
-  background-color: #fffbdb;
+  background-color: #c7faa0;
   border: none;
   font-weight: bold;
   border-radius: 10px;
@@ -86,8 +84,7 @@ p{
 
 .container-main {
   min-height: 100vh;   
-  width: 100%;    
-  background-color: #02c39a;  
+  width: 100%;     
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -96,14 +93,11 @@ p{
 }
 
 #h1-main {
-  color: aliceblue;
   margin-bottom: 20px;
   font-size: 40px;
 }
 
-h2{
-  color: aliceblue;
-}
+
 img{
   height:400px;
   width:100%;
@@ -112,7 +106,7 @@ img{
   display:flex;
   justify-content: flex-end;
   font-size: 18px; 
-  background-color: aliceblue;
+  background-color: #000505;
   height: 80px;
   width: 100%; 
   gap:40px;                
@@ -121,7 +115,7 @@ img{
 }
 .navbar p{
   font-size: 35px;
-  color: #02c39a;
+  color: aliceblue;
   margin-top:20px;
 }
 .navbar div{
@@ -129,16 +123,16 @@ img{
 }
 #p-mainpage{
   margin-bottom: 15px;
-  color: aliceblue;
 }
 .nav{
   height:80px;
   border:none;
   background-color: transparent ;
   font-size: 18px;
-  margin-right: 35px;
-  color:#02c39a;
+  margin-right: 30px;
+  color:aliceblue;
   font-weight: bold;
+  cursor: pointer;
 
 }
 
@@ -147,7 +141,7 @@ img{
 #reset-button{
   height: 40px;
   width: 180px;
-  background-color: #fffbdb;
+  background-color: #c7faa0;
   border: none;
   margin-top: 10px;
   font-weight: bold;
@@ -156,4 +150,28 @@ img{
   cursor: pointer;
   box-shadow: 0 2px 5px white;
 
+}
+
+/*profile*/
+
+.profile-posts {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px;
+}
+
+/* Each post card */
+.inner-container-profile {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }

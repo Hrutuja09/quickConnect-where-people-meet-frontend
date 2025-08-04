@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -25,10 +25,11 @@ function Login() {
 
     const data = await res.json();
     if (res.ok) {
-      alert("Login successful!");
+      navigate('/dashboard')
     } else {
       alert(data.error);
     }
+    props.user(username)
 
     setUsername("");
     setPassword("");

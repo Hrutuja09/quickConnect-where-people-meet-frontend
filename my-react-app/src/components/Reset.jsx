@@ -54,7 +54,7 @@ function Reset() {
         <input
           onChange={handleChangeuser}
           name="username"
-          placeholder="Create an username"
+          placeholder="Enter username"
           value={username}
         ></input>
         <input
