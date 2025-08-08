@@ -1,4 +1,8 @@
 /* Login */
+*{
+  padding: 0;
+  margin: 0;
+}
 body {
   font-family: Arial, sans-serif;
   margin:0;
@@ -95,6 +99,7 @@ p{
 #h1-main {
   margin-bottom: 20px;
   font-size: 40px;
+  margin-top: 20px;
 }
 
 
@@ -107,7 +112,7 @@ img{
   justify-content: flex-end;
   font-size: 18px; 
   background-color: #000505;
-  height: 80px;
+  height: 95px;
   width: 100%; 
   gap:40px;                
   justify-content: space-between;
@@ -129,7 +134,7 @@ img{
   border:none;
   background-color: transparent ;
   font-size: 18px;
-  margin-right: 30px;
+  margin-right: 48px;
   color:aliceblue;
   font-weight: bold;
   cursor: pointer;
@@ -174,4 +179,20 @@ img{
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+
+#comment-button{
+  height: 55px;
+  width: 55px;
+  background-color: #fbf8cc;
+  border: none;
+  margin-top: 10px;
+  font-weight: bold;
+  border-radius: 10px;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px white;
+  margin-left: 5px;
+
 }

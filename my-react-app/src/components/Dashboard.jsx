@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import RandomPosts from "./RandomPosts";
 
 function Dashboard(props) {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Dashboard(props) {
       <div className="navbar">
         <p>QuickConnect</p>
         <div>
-          <button className="nav">RandomPosts</button>
+          <button className="nav">Short-Videos</button>
           <button onClick={handleClick} className="nav">
             NewPost
           </button>
@@ -32,7 +33,8 @@ function Dashboard(props) {
           </button>
         </div>
       </div>
-      <h1 style={{fontSize:'30px'}}>Hi, {props.user}</h1>
+      <h1 style={{fontSize:'20px', marginTop:'20px'}}>Hi, {props.user}</h1>
+      <RandomPosts user={props.user}/>
     </div>
   );
 }

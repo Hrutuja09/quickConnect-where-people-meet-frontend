@@ -34,12 +34,10 @@ function Profile(props) {
                 style={{ maxWidth: "300px", height: "250px" }}
               />
             )}
-            <div style={{ display: "flex", gap: "5px" }}>
-              <p style={{ fontWeight: "bold", fontSize: "10px" }}>
-                {props.user}:{" "}
-              </p>
-              <p style={{ fontSize: "10px" }}>{post.content}</p>
-            </div>
+            <p style={{fontSize: "10px", marginTop:'10px'}}>
+              <b>{props.user}: </b>
+              <span style={{color:'#777'}}>{post.content}</span>
+            </p>
           </div>
         ))}
       </div>
