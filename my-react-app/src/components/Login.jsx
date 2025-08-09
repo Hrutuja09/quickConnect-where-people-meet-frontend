@@ -9,27 +9,27 @@ function Login(props) {
   const handleClick = async (event) => {
     event.preventDefault();
     // First fetch CSRF token
-    const csrfRes = await fetch("http://localhost:4141/api/csrf/", {
-      credentials: "include",
-    });
-    const { csrfToken } = await csrfRes.json();
     const res = await fetch("http://localhost:4141/api/login/", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": csrfToken,
       },
       body: JSON.stringify({ username, password }),
     });
 
     const data = await res.json();
     if (res.ok) {
-      navigate('/dashboard')
+      navigate("/dashboard");
     } else {
       alert(data.error);
     }
-    props.user(username)
+    if (data.token) {
+      localStorage.setItem("token", data.token); // save token
+    } else {
+      alert("Login failed");
+    }
+    props.user(username);
 
     setUsername("");
     setPassword("");

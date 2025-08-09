@@ -3,26 +3,22 @@ import React, { useEffect, useState } from "react";
 function RandomPosts() {
   const [posts, setPosts] = useState([]);
   const [commentText, setCommentText] = useState({});
-
-  const [like, setLike] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
-
-
+  const token = localStorage.getItem("token");
 
   // Fetch random posts from backend
   useEffect(() => {
-    fetch("http://localhost:4141/api/random-posts/", { credentials: "include" })
+    fetch("http://localhost:4141/api/random-posts/", {
+      credentials: "include",
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setPosts(data));
   }, []);
 
   // Handle posting a comment
   const handleComment = async (postId) => {
-    const csrfRes = await fetch("http://localhost:4141/api/csrf/", {
-      credentials: "include",
-    });
-    const { csrfToken } = await csrfRes.json();
-
     const res = await fetch(
       `http://localhost:4141/api/posts/${postId}/comment/`,
       {
@@ -30,7 +26,7 @@ function RandomPosts() {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
+          Authorization: `Token ${token}`,
         },
         body: JSON.stringify({ text: commentText[postId] }),
       }
@@ -47,27 +43,31 @@ function RandomPosts() {
     setCommentText("");
   };
   const handleLike = async (postId) => {
-    const csrfRes = await fetch("http://localhost:4141/api/csrf/", {
-      credentials: "include",
-    });
-    const { csrfToken } = await csrfRes.json();
+    try {
+      const res = await fetch(
+        `http://localhost:4141/api/posts/${postId}/like/`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Token ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!res.ok) throw new Error("Failed to like post");
+      const updatedPost = await res.json();
 
-    const res = await fetch(
-      `http://localhost:4141/api/posts/${postId}/like/`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
-        },
-      }
-    );
-    const data = await res.json();
-
-    if (res.ok){
-      setLike(!like)
-
+      // Update posts state with new like count
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.id === postId
+            ? { ...post, ...updatedPost } // merge to keep full post data
+            : post
+        )
+      );
+    } catch (error) {
+      console.error(error);
+      alert("Error liking the post.");
     }
   };
 
@@ -97,7 +97,22 @@ function RandomPosts() {
               style={{ width: "100%", borderRadius: "8px", height: "300px" }}
             />
           )}
-          <button onClick={handleLike}>like</button>
+          <div style={{ display: "flex", gap: "2px" }}>
+            <button
+              style={{
+                minWidth: "30px",
+                fontSize: "25px",
+                border: "none",
+                backgroundColor: "transparent",
+                margin: 0,
+                cursor: "pointer",
+              }}
+              onClick={() => handleLike(post.id)}
+            >
+              {post.liked ? "❤️":"🤍"}
+            </button>
+            <p style={{ marginTop: "18px" }}>{post.likes_count}</p>
+          </div>
           <p style={{ fontSize: "12px", marginTop: "5px" }}>
             <b>{post.author}: </b>
             <span style={{ color: "#777" }}>{post.content}</span>
@@ -106,8 +121,8 @@ function RandomPosts() {
           {/* Comments section */}
           <p style={{ fontSize: "18px", marginTop: "10px" }}>Comments</p>
           <div style={{ marginTop: "10px" }}>
-            {post.comments.map((c) => (
-              <p style={{ fontSize: "12px" }} key={c.id}>
+            {(post.comments || []).map((c) => (
+              <p style={{ fontSize: "12px" }} key={c.id || index}>
                 <b>{c.user}:</b> <span style={{ color: "#777" }}>{c.text}</span>
               </p>
             ))}

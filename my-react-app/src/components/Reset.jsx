@@ -9,16 +9,11 @@ function Reset() {
 
   const handleRegister = async (event) => {
     event.preventDefault();
-    const csrfRes = await fetch("http://localhost:4141/api/csrf/", {
-      credentials: "include",
-    });
-    const { csrfToken } = await csrfRes.json();
     const res = await fetch("http://localhost:4141/api/reset-password/", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": csrfToken,
       },
       body: JSON.stringify({ username, password }),
     });

@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Login from './Login'
 import Register from './Register'
 import MainPage from "./MainPage";
 import Reset from "./Reset";
 import Dashboard from "./Dashboard";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import NewPosts from "./NewPosts";
 import Profile from "./Profile";
 
@@ -15,6 +15,21 @@ function App() {
   function handleUser(username){
     setUser(username)
   }
+  useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    fetch("http://localhost:4141/api/me/", {
+      headers: {
+        "Authorization": `Token ${token}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUser(data.username);
+      })
+      .catch(err => console.error(err));
+  }
+}, []);
   return (
     <BrowserRouter>
       <Routes>
