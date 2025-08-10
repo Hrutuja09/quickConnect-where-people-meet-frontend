@@ -74,7 +74,7 @@ function RandomPosts() {
   return (
     <div
       className="random-posts"
-      style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}
+      style={{ display: "flex", flexWrap: "wrap", gap: "20px", width: "100%" }}
     >
       {posts.map((post) => (
         <div
@@ -84,7 +84,9 @@ function RandomPosts() {
             border: "1px solid #ccc",
             padding: "10px",
             maxWidth: "360px",
-            height: "510px",
+            minWidth: "360px",
+            height: "570px",
+            position: "relative",
           }}
         >
           <p>
@@ -109,7 +111,7 @@ function RandomPosts() {
               }}
               onClick={() => handleLike(post.id)}
             >
-              {post.liked ? "❤️":"🤍"}
+              {post.liked ? "❤️" : "🤍"}
             </button>
             <p style={{ marginTop: "18px" }}>{post.likes_count}</p>
           </div>
@@ -119,17 +121,37 @@ function RandomPosts() {
           </p>
 
           {/* Comments section */}
-          <p style={{ fontSize: "18px", marginTop: "10px" }}>Comments</p>
-          <div style={{ marginTop: "10px" }}>
+          <p
+            style={{
+              fontSize: "15px",
+              marginTop: "10px",
+            }}
+          >
+            Comments
+          </p>
+          <div
+            style={{ marginTop: "10px", maxHeight: "56px", overflowY: "auto", scrollbarWidth:"none" }}
+          >
             {(post.comments || []).map((c) => (
-              <p style={{ fontSize: "12px" }} key={c.id || index}>
+              <p
+                style={{
+                  fontSize: "12px",
+                }}
+                key={c.id || index}
+              >
                 <b>{c.user}:</b> <span style={{ color: "#777" }}>{c.text}</span>
               </p>
             ))}
           </div>
 
           {/* Comment input */}
-          <div style={{ marginTop: "10px" }}>
+          <div
+            style={{
+              marginTop: "10px",
+              position: "absolute",
+              bottom: "10px",
+            }}
+          >
             <input
               type="text"
               placeholder="Add a comment..."

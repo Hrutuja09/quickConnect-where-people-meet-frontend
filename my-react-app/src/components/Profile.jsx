@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 
 function Profile(props) {
   const [posts, setPosts] = useState([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetch("http://localhost:4141/api/my-posts/", {
       credentials: "include",
+      headers: {
+        Authorization: `Token ${token}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => setPosts(data));
@@ -13,7 +17,7 @@ function Profile(props) {
 
   return (
     <div>
-      <h1 style={{margin:'10px'}}>My Profile</h1>
+      <h1 style={{ margin: "10px" }}>My Profile</h1>
       {posts.length === 0 && <p>No posts yet.</p>}
       <div className="profile-container">
         {posts.map((post) => (
@@ -34,9 +38,9 @@ function Profile(props) {
                 style={{ maxWidth: "300px", height: "250px" }}
               />
             )}
-            <p style={{fontSize: "10px", marginTop:'10px'}}>
+            <p style={{ fontSize: "10px", marginTop: "10px" }}>
               <b>{props.user}: </b>
-              <span style={{color:'#777'}}>{post.content}</span>
+              <span style={{ color: "#777" }}>{post.content}</span>
             </p>
           </div>
         ))}

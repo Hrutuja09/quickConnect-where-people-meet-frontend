@@ -27,7 +27,7 @@ function Dashboard(props) {
           <button onClick={handleClick} className="nav">
             NewPost
           </button>
-          <button onClick={handleProfile}className="nav">Profile</button>
+          <button onClick={handleProfile} className="nav">Profile</button>
           <button onClick={handleLogout} className="nav">
             Logout
           </button>
