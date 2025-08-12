@@ -12,9 +12,7 @@ import Profile from "./Profile";
 function App() {
 
   const [user, setUser] = useState()
-  function handleUser(username){
-    setUser(username)
-  }
+
   useEffect(() => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -34,7 +32,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<Login user={handleUser}/>} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/dashboard" element={<Dashboard user={user}/>} />

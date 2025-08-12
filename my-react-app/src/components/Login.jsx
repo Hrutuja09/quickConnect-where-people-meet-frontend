@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Register from "./Register";
+import Reset from "./Reset";
 
 function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [register, setRegister] = useState(false);
+  const [reset, setReset] = useState(false);
   const navigate = useNavigate();
 
   const handleClick = async (event) => {
@@ -17,7 +22,6 @@ function Login(props) {
       },
       body: JSON.stringify({ username, password }),
     });
-
     const data = await res.json();
     if (res.ok) {
       navigate("/dashboard");
@@ -29,61 +33,85 @@ function Login(props) {
     } else {
       alert("Login failed");
     }
-    props.user(username);
-
     setUsername("");
     setPassword("");
   };
 
   function handleChangeuser(event) {
     setUsername(event.target.value);
+   
   }
   function handleChangepass(event) {
     setPassword(event.target.value);
   }
   function handleRegister(event) {
     event.preventDefault();
-    navigate("/register");
+    setRegister(true);
   }
+  function closeRegister(event) {
+    event.preventDefault();
+    setRegister(false);
+  }
+
   function handleReset(event) {
     event.preventDefault();
-    navigate("/reset");
+    setReset(true);
+  }
+  function closeReset(event) {
+    event.preventDefault();
+    setReset(false);
   }
 
   return (
-    <div className="container">
-      <h1>QuickConnect - Place Where People Meet</h1>
-      <form id="form">
-        <input
-          onChange={handleChangeuser}
-          name="username"
-          placeholder="Enter your username"
-          value={username}
-        ></input>
-        <input
-          onChange={handleChangepass}
-          name="password"
-          placeholder="Enter your password"
-          value={password}
-        ></input>
-        <button onClick={handleClick} className="button" type="submit">
-          Login
-        </button>
-        <div id="register-container">
-          <p>Do not have an account?</p>
-          <button
-            onClick={handleRegister}
-            className="button-register"
-            type="submit"
-          >
-            Register
+    <>
+      <div  style={{ marginTop:'80px'}} className={`"container-main" ${register ? "blur" : ""}`}>
+        <h1>QuickConnect - Place Where People Meet</h1>
+        <form id="form">
+          <input
+            onChange={handleChangeuser}
+            name="username"
+            placeholder="Enter your username"
+            value={username}
+          ></input>
+          <input
+            onChange={handleChangepass}
+            name="password"
+            placeholder="Enter your password"
+            value={password}
+          ></input>
+          <button onClick={handleClick} className="button" type="submit">
+            Login
           </button>
-          <button id="reset-button" onClick={handleReset} type="submit">
-            Forgot-password
-          </button>
+          <div id="register-container">
+            <p>Do not have an account?</p>
+            <button
+              onClick={handleRegister}
+              className="button-register"
+              type="submit"
+            >
+              Register
+            </button>
+            <button id="reset-button" onClick={handleReset} type="submit">
+              Forgot-password
+            </button>
+          </div>
+        </form>
+      </div>
+      {register && (
+        <div className="modal-overlay" onClick={closeRegister}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <Register />
+          </div>
         </div>
-      </form>
-    </div>
+      )}
+      {reset && (
+        <div className="modal-overlay" onClick={closeReset}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <Reset />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 export default Login;

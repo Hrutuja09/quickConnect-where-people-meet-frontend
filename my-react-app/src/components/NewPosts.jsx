@@ -6,6 +6,7 @@ function NewPosts() {
   const [image, setImage] = useState(null);
   const [mood, setMood] = useState("");
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -15,15 +16,10 @@ function NewPosts() {
     if (image) formData.append("image", image);
     if (mood) formData.append("mood", mood);
 
-    const csrfRes = await fetch("http://localhost:4141/api/csrf/", {
-      credentials: "include",
-    });
-    const { csrfToken } = await csrfRes.json();
-
     const res = await fetch("http://localhost:4141/api/posts/", {
       method: "POST",
       credentials: "include",
-      headers: { "X-CSRFToken": csrfToken },
+      headers: { Authorization: `Token ${token}` },
       body: formData,
     });
 
@@ -33,13 +29,21 @@ function NewPosts() {
   };
 
   return (
-    <div className="container">
+    <div style={{ height: "580px" }} className="container">
       <h1>Create a new Post</h1>
       <form id="form">
         <textarea
           onChange={(e) => setContent(e.target.value)}
           placeholder="What's on your mind?"
           value={content}
+          style={{
+            height: "50px",
+            width: "380px",
+            resize: "none",
+            borderRadius: "5px",
+            textAlign: "center",
+            fontSize: "18px",
+          }}
         ></textarea>
         <input
           type="file"
@@ -52,7 +56,9 @@ function NewPosts() {
           value={mood}
           onChange={(e) => setMood(e.target.value)}
         />
-        <button onClick={handleClick} type="submit">Post</button>
+        <button onClick={handleClick} className="button" type="submit">
+          Post
+        </button>
       </form>
     </div>
   );

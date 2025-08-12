@@ -7,8 +7,6 @@ body {
   font-family: Arial, sans-serif;
   background-color:aliceblue;
 }
-
-
 .container {
   height: 100vh;   
   width: 100%;      
@@ -21,7 +19,7 @@ body {
 
 h1 {
   margin-bottom: 50px;
-  font-size: 40px;
+  font-size: 30px;
 }
 
 #form {
@@ -192,5 +190,35 @@ img{
   cursor: pointer;
   box-shadow: 0 2px 5px white;
   margin-left: 5px;
+
+}
+
+/*blur*/
+.container-main.blur {
+  filter: blur(5px);
+}
+.navbar.blur {
+  filter: blur(5px);
+}
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Popup box */
+.modal {
+  background: aliceblue;
+  padding: 20px;
+  border-radius: 30px;
+  height: 580px;
 
 }

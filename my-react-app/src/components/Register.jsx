@@ -21,7 +21,8 @@ function Register() {
     const data = await res.json();
     if (res.ok) {
       alert("User Registered Successfully!");
-      navigate("/login");
+      navigate("/");
+      window.location.reload(); /*forcing to go back*/
     } else {
       alert(data.error);
     }
@@ -42,7 +43,7 @@ function Register() {
   }
 
   return (
-    <div className="container">
+    <div style={{ height: "580px" }} className="container">
       <h1>QuickConnect - Place Where People Meet</h1>
       <form id="form">
         <input

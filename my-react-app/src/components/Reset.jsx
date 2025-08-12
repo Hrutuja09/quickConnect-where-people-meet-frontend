@@ -21,7 +21,8 @@ function Reset() {
     const data = await res.json();
     if (res.ok) {
       alert("Password Reset Successfully!");
-      navigate("/login");
+      navigate("/");
+      window.location.reload(); /*forcing to go back*/
     } else {
       alert(data.error);
     }
@@ -43,7 +44,7 @@ function Reset() {
   }
 
   return (
-    <div className="container">
+    <div style={{ height: "580px" }} className="container">
       <h1>QuickConnect - Place Where People Meet</h1>
       <form id="form">
         <input
@@ -65,7 +66,7 @@ function Reset() {
           value={password}
         ></input>
         <button onClick={handleRegister} className="button" type="submit">
-          Sign Up
+          Save Password
         </button>
       </form>
     </div>

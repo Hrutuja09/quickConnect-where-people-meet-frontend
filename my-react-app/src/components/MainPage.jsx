@@ -1,30 +1,50 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Login from "./Login";
 
 function MainPage() {
-  const navigate = useNavigate();
+  const [showLogin, setShowLogin] = useState(false);
+
   function handleClick() {
-    navigate("/login");
+    setShowLogin(true);
   }
+
+  function closeLogin() {
+    setShowLogin(false);
+  }
+
   return (
-    <div className="container-main">
-      <div className="navbar">
-        <p>QuickConnect</p>
-        <div>
-          <button className="nav">Home</button>
-          <button className="nav">About</button>
-          <button className="nav">Services</button>
-          <button className="nav">Support</button>
+    <>
+      <div className={`container-main ${showLogin ? "blur" : ""}`}>
+        <div className="navbar">
+          <p>QuickConnect</p>
+          <div>
+            <button className="nav">Home</button>
+            <button className="nav">About</button>
+            <button className="nav">Services</button>
+            <button className="nav">Support</button>
+          </div>
         </div>
+        <h1 id="h1-main">Welcome!</h1>
+        <h2>QuickConnect - Place Where People Meet</h2>
+        <img
+          src="https://img.freepik.com/premium-vector/connecting-people-social-network-concept-bright-background-vector-illustration_191567-959.jpg?w=2000"
+          alt="Social Connection"
+        />
+        <p id="p-mainpage">Eager to connect with people?</p>
+        <button onClick={handleClick} className="button" type="button">
+          Let’s get started
+        </button>
       </div>
-      <h1 id="h1-main">Welcome!</h1>
-      <h2>QuickConnect - Place Where People Meet</h2>
-      <img src="https://img.freepik.com/premium-vector/connecting-people-social-network-concept-bright-background-vector-illustration_191567-959.jpg?w=2000"></img>
-      <p id="p-mainpage">Eagar to connect with people?</p>
-      <button onClick={handleClick} className="button" type="submit">
-        Let`s get started
-      </button>
-    </div>
+
+      {showLogin && (
+        <div className="modal-overlay" onClick={closeLogin}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <Login />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
+
 export default MainPage;
