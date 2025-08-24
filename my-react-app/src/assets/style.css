@@ -108,7 +108,7 @@ img{
   justify-content: flex-end;
   font-size: 18px; 
   background-color: #000505;
-  height: 95px;
+  height: 60px;
   width: 100%; 
   gap:10px;                
   justify-content: space-between;
@@ -120,17 +120,17 @@ img{
   margin-top:20px;
 }
 .navbar div{
-  width:500px;
+  width:430px;
 }
 #p-mainpage{
   margin-bottom: 15px;
 }
 .nav{
-  height:80px;
+  height:35px;
   border:none;
   background-color: transparent ;
   font-size: 18px;
-  margin-right: 25px;
+  margin-right: 30px;
   color:aliceblue;
   font-weight: bold;
   cursor: pointer;

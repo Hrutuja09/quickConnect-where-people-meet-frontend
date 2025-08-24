@@ -15,13 +15,13 @@ function MainPage() {
   return (
     <>
       <div className={`container-main ${showLogin ? "blur" : ""}`}>
-        <div className="navbar">
-          <p>QuickConnect</p>
+        <div style={{marginTop:"-14px"}}className="navbar">
+          <p style={{ fontSize: "25px", marginTop: "15px" }}>QuickConnect</p>
           <div>
-            <button className="nav">Home</button>
-            <button className="nav">About</button>
-            <button className="nav">Services</button>
-            <button className="nav">Support</button>
+            <button style={{ fontSize: "20px"}} className="nav">Home</button>
+            <button style={{ fontSize: "20px"}} className="nav">About</button>
+            <button style={{ fontSize: "20px"}} className="nav">Services</button>
+            <button style={{ fontSize: "20px", marginTop: "15px" }} className="nav">Support</button>
           </div>
         </div>
         <h1 id="h1-main">Welcome!</h1>

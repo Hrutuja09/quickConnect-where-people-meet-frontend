@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import RandomPosts from "./RandomPosts";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import NewPosts from "./NewPosts";
 import Notification from "./Notifications";
 
-function Dashboard(props) {
+function Search(props) {
+  const { userId } = useParams();
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   const [results, setResults] = useState([]);
   const [newPost, setNewPost] = useState(false);
@@ -12,9 +13,22 @@ function Dashboard(props) {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [input, setInput] = useState("");
-
+  const [authorName, setAuthorName] = useState("");
   const token = localStorage.getItem("token");
 
+  useEffect(() => {
+    fetch(`http://localhost:4141/api/user-posts/${userId}`, {
+      credentials: "include",
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data);
+        setAuthorName(data[0].author);
+      });
+  }, [userId, token]);
   useEffect(() => {
     fetchNotifications();
 
@@ -180,15 +194,10 @@ function Dashboard(props) {
             width: "500px",
           }}
         >
-          <div>
-            <h1 style={{ fontSize: "20px", marginTop: "20px", width: "100px" }}>
-              Hi, {props.user}
-            </h1>
-          </div>
           {results.length > 0 && (
             <div
               style={{
-                marginLeft: "95px",
+                marginLeft: "195px",
               }}
             >
               <ul
@@ -223,10 +232,45 @@ function Dashboard(props) {
             </div>
           )}
         </div>
-
-        <RandomPosts user={props.user} />
+        <div>
+          <h1 style={{ margin: "10px", fontSize: "25px" }}>{authorName}</h1>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <button className="button" style={{ width: "600px" }}>
+              Direct Message
+            </button>
+            <button className="button" style={{ width: "600px" }}>
+              Follow
+            </button>
+          </div>
+        </div>
+        {posts.length === 0 && <p>No posts yet.</p>}
+        <div className="profile-container">
+          {posts.map((post) => (
+            <div
+              className="inner-container-profile"
+              key={post.id}
+              style={{
+                border: "1px solid #ccc",
+                margin: "10px",
+                padding: "10px",
+                width: "300px",
+              }}
+            >
+              {post.image && (
+                <img
+                  src={`http://localhost:4141${post.image}`}
+                  alt=""
+                  style={{ maxWidth: "300px", height: "250px" }}
+                />
+              )}
+              <p style={{ fontSize: "10px", marginTop: "10px" }}>
+                <b>{post.author}: </b>
+                <span style={{ color: "#777" }}>{post.content}</span>
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
-
       {newPost && (
         <div className="modal-overlay" onClick={closeNewPosts}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -253,4 +297,4 @@ function Dashboard(props) {
   );
 }
 
-export default Dashboard;
+export default Search;

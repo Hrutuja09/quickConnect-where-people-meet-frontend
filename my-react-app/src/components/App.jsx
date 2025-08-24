@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard";
 import { useState,useEffect } from "react";
 import NewPosts from "./NewPosts";
 import Profile from "./Profile";
+import Search from "./Search";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard user={user}/>} />
         <Route path="/newPosts" element={<NewPosts />} />
         <Route path="/profile" element={<Profile user={user}/>} />
+        <Route path="/profile/:userId" element={<Search />} />
 
       </Routes>
     </BrowserRouter>
