@@ -181,14 +181,14 @@ function Dashboard(props) {
           }}
         >
           <div>
-            <h1 style={{ fontSize: "20px", marginTop: "20px", width: "100px" }}>
+            <h1 style={{ fontSize: "20px", marginTop: "20px", width: "130px" }}>
               Hi, {props.user}
             </h1>
           </div>
           {results.length > 0 && (
             <div
               style={{
-                marginLeft: "95px",
+                marginLeft: "64px",
               }}
             >
               <ul

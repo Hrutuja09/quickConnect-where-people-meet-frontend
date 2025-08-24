@@ -148,7 +148,7 @@ function Search(props) {
                 style={{
                   position: "absolute",
                   top: "8px",
-                  left: "763px",
+                  left: "775px",
                   background: "red",
                   color: "white",
                   borderRadius: "50%",
